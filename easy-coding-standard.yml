@@ -1,0 +1,11 @@
+parameters:
+  sets:
+    - 'clean-code'
+    - 'dead-code'
+    - 'php71'
+    - 'psr2'
+    - 'symfony'
+
+services:
+  SlamCsFixer\FinalInternalClassFixer: ~
+
