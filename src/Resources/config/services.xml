@@ -28,7 +28,16 @@
                 <argument type="service" id="tuzex.cqrs.command_bus.middleware.add_bus_name_stamp_middleware"/>
                 <argument type="service" id="tuzex.cqrs.command_bus.middleware.handle_message"/>
             </argument>
-            <tag name="messenger_bus"/>
+            <tag name="messenger.bus"/>
+        </service>
+
+        <service id="tuzex.cqrs.query_bus.middleware.add_bus_name_stamp_middleware"
+                 parent="messenger.middleware.add_bus_name_stamp_middleware"
+                 autowire="true"
+                 autoconfigure="false"
+                 public="false"
+        >
+            <argument type="string">tuzex.cqrs.query_bus</argument>
         </service>
 
         <service id="tuzex.cqrs.query_bus.middleware.handle_message"
@@ -40,16 +49,17 @@
 
         <service id="tuzex.cqrs.query_bus" class="Symfony\Component\Messenger\MessageBus">
             <argument type="collection">
+                <argument type="service" id="tuzex.cqrs.query_bus.middleware.add_bus_name_stamp_middleware"/>
                 <argument type="service" id="tuzex.cqrs.query_bus.middleware.handle_message"/>
             </argument>
-            <tag name="messenger_bus"/>
+            <tag name="messenger.bus"/>
         </service>
 
-        <service id="Tuzex\Bundle\Cqrs\CommandBus" class="Tuzex\Bundle\Cqrs\MessengerCommandBus">
+        <service id="Tuzex\Cqrs\CommandBus" class="Tuzex\Bundle\Cqrs\MessengerCommandBus">
             <bind key="Symfony\Component\Messenger\MessageBusInterface" type="service" id="tuzex.cqrs.command_bus"/>
         </service>
 
-        <service id="Tuzex\Bundle\Cqrs\QueryBus" class="Tuzex\Bundle\Cqrs\MessengerQueryBus">
+        <service id="Tuzex\Cqrs\QueryBus" class="Tuzex\Bundle\Cqrs\MessengerQueryBus">
             <bind key="Symfony\Component\Messenger\MessageBusInterface" type="service" id="tuzex.cqrs.query_bus"/>
         </service>
     </services>
