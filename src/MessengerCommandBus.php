@@ -26,8 +26,8 @@ final class MessengerCommandBus implements CommandBus
     {
         try {
             $this->messageBus->dispatch($command);
-        } catch (NoHandlerForMessageException $e) {
-            throw new CommandHandlerNotFoundException($command, $e);
+        } catch (NoHandlerForMessageException $exception) {
+            throw new CommandHandlerNotFoundException($command, $exception);
         }
     }
 }

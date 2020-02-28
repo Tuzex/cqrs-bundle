@@ -26,8 +26,8 @@ final class MessengerQueryBus implements QueryBus
     {
         try {
             $envelope = $this->messageBus->dispatch($query);
-        } catch (NoHandlerForMessageException $e) {
-            throw new QueryHandlerNotFoundException($query, $e);
+        } catch (NoHandlerForMessageException $exception) {
+            throw new QueryHandlerNotFoundException($query, $exception);
         }
 
         $stamp = array_key_first($envelope->all(HandledStamp::class));
