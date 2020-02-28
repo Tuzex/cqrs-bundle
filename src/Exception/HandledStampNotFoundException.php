@@ -13,7 +13,7 @@ final class HandledStampNotFoundException extends InvalidArgumentException
 {
     public function __construct(Query $query, $stamp = null)
     {
-        $stamp = ($stamp instanceof StampInterface) ? get_class($stamp) : '';
+        $stamp = $stamp instanceof StampInterface ? get_class($stamp) : '';
 
         parent::__construct(
             sprintf('Query handler for the "%s" query returns "%s", instead of the "%s" stamp.', get_class($query), $stamp, HandledStamp::class)
