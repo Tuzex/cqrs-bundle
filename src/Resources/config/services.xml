@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <defaults autowire="true" autoconfigure="true" public="false" />
+
+        <service id="tuzex.cqrs.command_bus.middleware.add_bus_name_stamp_middleware"
+                 parent="messenger.middleware.add_bus_name_stamp_middleware"
+                 autowire="true"
+                 autoconfigure="false"
+                 public="false"
+        >
+            <argument type="string">tuzex.cqrs.command_bus</argument>
+        </service>
+
+        <service id="tuzex.cqrs.command_bus.middleware.handle_message"
+                 parent="messenger.middleware.handle_message"
+                 autowire="true"
+                 autoconfigure="false"
+                 public="false"
+        />
+
+        <service id="tuzex.cqrs.command_bus" class="Symfony\Component\Messenger\MessageBus">
+            <argument type="collection">
+                <argument type="service" id="tuzex.cqrs.command_bus.middleware.add_bus_name_stamp_middleware"/>
+                <argument type="service" id="tuzex.cqrs.command_bus.middleware.handle_message"/>
+            </argument>
+            <tag name="messenger_bus"/>
+        </service>
+
+        <service id="tuzex.cqrs.query_bus.middleware.handle_message"
+                 parent="messenger.middleware.handle_message"
+                 autowire="true"
+                 autoconfigure="false"
+                 public="false"
+        />
+
+        <service id="tuzex.cqrs.query_bus" class="Symfony\Component\Messenger\MessageBus">
+            <argument type="collection">
+                <argument type="service" id="tuzex.cqrs.query_bus.middleware.handle_message"/>
+            </argument>
+            <tag name="messenger_bus"/>
+        </service>
+
+        <service id="Tuzex\Bundle\Cqrs\CommandBus" class="Tuzex\Bundle\Cqrs\MessengerCommandBus">
+            <bind key="Symfony\Component\Messenger\MessageBusInterface" type="service" id="tuzex.cqrs.command_bus"/>
+        </service>
+
+        <service id="Tuzex\Bundle\Cqrs\QueryBus" class="Tuzex\Bundle\Cqrs\MessengerQueryBus">
+            <bind key="Symfony\Component\Messenger\MessageBusInterface" type="service" id="tuzex.cqrs.query_bus"/>
+        </service>
+    </services>
+</container>
