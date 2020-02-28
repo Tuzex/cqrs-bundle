@@ -12,9 +12,6 @@ use Tuzex\Cqrs\CommandBus;
 
 final class MessengerCommandBus implements CommandBus
 {
-    /**
-     * @var MessageBus
-     */
     private MessageBus $messageBus;
 
     public function __construct(MessageBus $messageBus)
