@@ -39,11 +39,15 @@ final class CqrsMessengerExtension extends Extension implements PrependExtension
 
         $containerBuilder->registerForAutoconfiguration(CommandHandler::class)
             ->addTag('tuzex.cqrs.command_handler')
-            ->addTag('messenger.message_handler', ['bus' => 'tuzex.cqrs.command_bus']);
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.cqrs.command_bus',
+            ]);
 
         $containerBuilder->registerForAutoconfiguration(QueryHandler::class)
             ->addTag('tuzex.cqrs.query_handler')
-            ->addTag('messenger.message_handler', ['bus' => 'tuzex.cqrs.query_bus']);
+            ->addTag('messenger.message_handler', [
+                'bus' => 'tuzex.cqrs.query_bus',
+            ]);
     }
 
     public function load(array $configs, ContainerBuilder $containerBuilder): void
