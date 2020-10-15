@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Tuzex\Bundle\Cqrs;
 
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
-use Symfony\Component\Messenger\MessageBusInterface as MessageBus;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Tuzex\Bundle\Cqrs\Exception\CommandHandlerNotFoundException;
 use Tuzex\Cqrs\Command;
 use Tuzex\Cqrs\CommandBus;
 
 final class MessengerCommandBus implements CommandBus
 {
-    private MessageBus $messageBus;
+    private MessageBusInterface $messageBus;
 
-    public function __construct(MessageBus $messageBus)
+    public function __construct(MessageBusInterface $messageBus)
     {
         $this->messageBus = $messageBus;
     }
