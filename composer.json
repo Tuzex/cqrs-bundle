@@ -19,8 +19,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tuzex\\Bundle\\Cqrs\\Test\\": "tests/src",
-      "Tuzex\\Bundle\\Cqrs\\Test\\Hook\\": "tests/hook"
+      "Tuzex\\Bundle\\Cqrs\\Test\\": "tests"
     }
   },
   "require": {
