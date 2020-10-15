@@ -29,9 +29,9 @@ final class MessengerQueryBus implements QueryBus
             throw new QueryHandlerNotFoundException($query, $exception);
         }
 
-        $stamp = array_key_first($envelope->all(HandledStamp::class));
+        $stamp = $envelope->last(HandledStamp::class);
         if (!$stamp instanceof HandledStamp) {
-            throw new HandledStampNotFoundException($query, $stamp);
+            throw new UnprocessedQueryException($query);
         }
 
         return $stamp->getResult();
