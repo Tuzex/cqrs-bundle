@@ -33,30 +33,5 @@
     "phpstan/phpstan-phpunit": "0.12.*",
     "phpunit/phpunit": "9.4.*",
     "symplify/easy-coding-standard": "8.3.*"
-  },
-  "scripts": {
-    "check:composer": "@composer validate --no-check-all --strict",
-    "check": [
-      "@check:composer"
-    ],
-    "test:unit": "phpunit -c phpunit.xml tests",
-    "test:static": "phpstan analyse tests src -l max -c phpstan.neon",
-    "test": [
-      "@test:unit",
-      "@test:static"
-    ],
-    "cs": [
-      "ecs check src tests --config easy-coding-standard.yml"
-    ],
-    "cs:fix": [
-      "ecs check src tests --config easy-coding-standard.yml --fix",
-      "@cs"
-    ]
-  },
-  "scripts-descriptions": {
-    "check": "Validate the composer.json file.",
-    "test": "Run all unit tests and the static analysis of codes.",
-    "cs": "Run coding standards checkers.",
-    "cs-fix": "Fix-ups the code in accordance with our coding standards."
   }
 }
