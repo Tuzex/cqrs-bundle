@@ -8,6 +8,9 @@ use LogicException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Tuzex\Cqrs\Command;
 
+/**
+ * @deprecated since version 1.0.0
+ */
 final class CommandHandlerNotFoundException extends LogicException
 {
     public function __construct(Command $command, NoHandlerForMessageException $exception)

@@ -8,6 +8,9 @@ use LogicException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Tuzex\Cqrs\Query;
 
+/**
+ * @deprecated since version 1.0.0
+ */
 final class QueryHandlerNotFoundException extends LogicException
 {
     public function __construct(Query $query, NoHandlerForMessageException $exception)
