@@ -11,7 +11,6 @@ use Tuzex\Bundle\Cqrs\Exception\HandledStampNotFoundException;
 use Tuzex\Bundle\Cqrs\Exception\QueryHandlerNotFoundException;
 use Tuzex\Cqrs\Query;
 use Tuzex\Cqrs\QueryBus;
-use Tuzex\Cqrs\Transfer\Dto;
 
 final class MessengerQueryBus implements QueryBus
 {
@@ -22,7 +21,7 @@ final class MessengerQueryBus implements QueryBus
         $this->messageBus = $messageBus;
     }
 
-    public function execute(Query $query): Dto
+    public function execute(Query $query): object
     {
         try {
             $envelope = $this->messageBus->dispatch($query);
