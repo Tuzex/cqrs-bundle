@@ -31,5 +31,5 @@ jobs:
       script: vendor/bin/ecs check -c ecs.php
 
 notifications:
-  email:
-    on_success: never
+  slack: codea-eu:7l0xhGhVfV5viFmSeyaHA6Pl
+
