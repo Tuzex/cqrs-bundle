@@ -1,14 +1,11 @@
 parameters:
-    autoload_files:
-        - %rootDir%/../../../vendor/autoload.php
+  level: 8
+  paths:
+    - src
+    - tests
 
-    excludes_analyse:
-        - 'tests/unit/src/Factory/Redirect/RedirectToRefererResponseFactoryTest.php'
-        - 'tests/unit/src/Factory/Redirect/RedirectToSameUrlResponseFactoryTest.php'
-
-    checkMissingIterableValueType: false
+  checkMissingIterableValueType: false
 
 includes:
-    - vendor/phpstan/phpstan-mockery/extension.neon
-    - vendor/phpstan/phpstan-phpunit/extension.neon
-    - vendor/phpstan/phpstan-phpunit/rules.neon
+  - vendor/phpstan/phpstan-phpunit/extension.neon
+  - vendor/phpstan/phpstan-phpunit/rules.neon
