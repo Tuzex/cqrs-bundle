@@ -67,7 +67,6 @@ final class CqrsExtensionTest extends TestCase
         $this->assertArrayHasKey($id, $this->containerBuilder->getAutoconfiguredInstanceof());
     }
 
-
     /**
      * @dataProvider provideHandlerSettings
      */
@@ -91,7 +90,7 @@ final class CqrsExtensionTest extends TestCase
                 'tags' => [
                     'tuzex.cqrs.command_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'tuzex.cqrs.command_bus'
+                        'bus' => 'tuzex.cqrs.command_bus',
                     ],
                 ],
             ],
@@ -100,7 +99,7 @@ final class CqrsExtensionTest extends TestCase
                 'tags' => [
                     'tuzex.cqrs.query_handler' => [],
                     'messenger.message_handler' => [
-                        'bus' => 'tuzex.cqrs.query_bus'
+                        'bus' => 'tuzex.cqrs.query_bus',
                     ],
                 ],
             ],
