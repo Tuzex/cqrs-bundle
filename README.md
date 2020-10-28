@@ -1,12 +1,12 @@
-# Tuzex / cqrs-messenger-bundle
+# Tuzex / cqrs-bundle
 
-Implementation of CQRS (Command Query Responsibility Segregation) based on the Symfony Messenger for Symfony 4.3&lt;.
+Integration of CQRS (Command Query Responsibility Segregation) based on the Symfony Messenger to Symfony 4.3 and higher.
 
-Installation
+Install
 ------------
 
-The best way to install Tuzex/cqrs-messenger-bundle is using the [Composer](http://getcomposer.org/):
+The best way to install Tuzex/cqrs-bundle is using the [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require tuzex/cqrs-messenger-bundle
+$ composer require tuzex/cqrs-bundle
 ```
