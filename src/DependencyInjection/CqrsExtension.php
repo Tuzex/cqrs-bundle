@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Tuzex\Cqrs\CommandHandler;
 use Tuzex\Cqrs\QueryHandler;
 
-final class CqrsMessengerExtension extends Extension implements PrependExtensionInterface
+final class CqrsExtension extends Extension implements PrependExtensionInterface
 {
     private FileLocator $fileLocator;
 

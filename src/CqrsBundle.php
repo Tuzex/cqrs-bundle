@@ -7,6 +7,6 @@ namespace Tuzex\Bundle\Cqrs;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
-final class CqrsMessengerBundle extends Bundle implements BundleInterface
+final class CqrsBundle extends Bundle implements BundleInterface
 {
 }
