@@ -8,12 +8,13 @@ use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Tuzex\Cqrs\CommandHandler;
 use Tuzex\Cqrs\QueryHandler;
 
-final class CqrsExtension extends Extension implements PrependExtensionInterface
+final class CqrsExtension extends Extension implements ExtensionInterface, PrependExtensionInterface
 {
     private FileLocator $fileLocator;
 
