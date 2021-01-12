@@ -1,0 +1,26 @@
+name: Composer validation
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  composer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    name: PHP ${{ matrix.php }} - Composer validation
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Validate composer scheme
+        run: composer validate --no-check-all --strict

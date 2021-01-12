@@ -1,0 +1,52 @@
+name: Tests
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    name: PHP ${{ matrix.php }} - Unit Tests
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-progress
+
+      - name: Run unit tests
+        run: vendor/bin/phpunit -c phpunit.xml
+
+  phpstan:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    name: PHP ${{ matrix.php }} - Static Analyse
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install PHP dependencies
+        run: composer install --no-progress
+
+      - name: Run static analyse
+        run: vendor/bin/phpstan analyse -c phpstan.neon
