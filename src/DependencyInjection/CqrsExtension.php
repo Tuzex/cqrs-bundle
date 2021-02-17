@@ -23,12 +23,12 @@ final class CqrsExtension extends Extension implements ExtensionInterface, Prepe
         $this->fileLocator = new FileLocator(__DIR__.'/../Resources/config');
     }
 
-    public function prepend(ContainerBuilder $containerBuilder): void
+    public function prepend(ContainerBuilder $container): void
     {
         $configuration = new Configuration(false);
-        $configs = $this->processConfiguration($configuration, $containerBuilder->getExtensionConfig('framework'));
+        $configs = $this->processConfiguration($configuration, $container->getExtensionConfig('framework'));
 
-        $containerBuilder->prependExtensionConfig('framework', [
+        $container->prependExtensionConfig('framework', [
             'messenger' => [
                 'default_bus' => $configs['messenger']['default_bus'] ?? 'tuzex.cqrs.command_bus',
                 'buses' => [
@@ -38,22 +38,22 @@ final class CqrsExtension extends Extension implements ExtensionInterface, Prepe
             ],
         ]);
 
-        $containerBuilder->registerForAutoconfiguration(CommandHandler::class)
+        $container->registerForAutoconfiguration(CommandHandler::class)
             ->addTag('tuzex.cqrs.command_handler')
             ->addTag('messenger.message_handler', [
                 'bus' => 'tuzex.cqrs.command_bus',
             ]);
 
-        $containerBuilder->registerForAutoconfiguration(QueryHandler::class)
+        $container->registerForAutoconfiguration(QueryHandler::class)
             ->addTag('tuzex.cqrs.query_handler')
             ->addTag('messenger.message_handler', [
                 'bus' => 'tuzex.cqrs.query_bus',
             ]);
     }
 
-    public function load(array $configs, ContainerBuilder $containerBuilder): void
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader($containerBuilder, $this->fileLocator);
+        $loader = new XmlFileLoader($container, $this->fileLocator);
         $loader->load('services.xml');
     }
 }
