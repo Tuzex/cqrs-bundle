@@ -5,8 +5,28 @@ on:
       - master
 
 jobs:
+  composer:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    name: PHP ${{ matrix.php }} - Composer validation
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --no-check-all --strict
+
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         php: [ '8.0' ]
@@ -16,20 +36,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: none
 
-      - name: Install PHP dependencies
+      - name: Install dependencies
         run: composer install --no-progress
 
       - name: Run unit tests
         run: vendor/bin/phpunit -c phpunit.xml
 
   phpstan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         php: [ '8.0' ]
@@ -40,13 +60,36 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup PHP
-        uses: shivammathur/setup-php@v1
+        uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: none
 
-      - name: Install PHP dependencies
+      - name: Install dependencies
         run: composer install --no-progress
 
       - name: Run static analyse
         run: vendor/bin/phpstan analyse -c phpstan.neon
+
+  ecs:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: [ '8.0' ]
+
+    name: PHP ${{ matrix.php }} - Coding Standards
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --no-progress
+
+      - name: Check coding standards
+        run: vendor/bin/ecs check -c ecs.php

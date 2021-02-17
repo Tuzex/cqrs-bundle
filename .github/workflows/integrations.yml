@@ -1,4 +1,4 @@
-name: Code coverage
+name: Integrations
 on:
   push:
     branches:
@@ -6,29 +6,29 @@ on:
 
 jobs:
   coveralls:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       matrix:
         php: [ '8.0' ]
 
-    name: PHP ${{ matrix.php }} - Code Coverage
+    name: Code Coverage
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
 
-      - name: Set up PHP
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           coverage: pcov
 
-      - name: Install PHP dependencies
+      - name: Install dependencies
         run: composer install --no-progress
 
-      - name: Generate code coverage
+      - name: Generate clover.xml
         run: vendor/bin/phpunit -c phpunit.xml --coverage-clover clover.xml
 
-      - name: Send to Coveralls
+      - name: Upload to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
